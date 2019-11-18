@@ -15,8 +15,9 @@ namespace Trpz2.ViewModels
     {
         #region Consts
 
-        public static readonly string Page1ViewModelAlias = "Page1VM";
-        public static readonly string Page2ViewModelAlias = "Page2VM";
+        public static readonly string InfoPageViewModelAlias = "InfoPageVM";
+        public static readonly string ItemsPageViewModelAlias = "ItemsPageVM";
+        public static readonly string ShoppingCartPageViewModelAlias = "ShoppingCartPageVM";
 
         #endregion
 
@@ -26,8 +27,9 @@ namespace Trpz2.ViewModels
         {
             _resolver = resolver;
 
-            _p1ViewModel = _resolver.GetViewModelInstance(Page1ViewModelAlias);
-            _p2ViewModel = _resolver.GetViewModelInstance(Page2ViewModelAlias);
+            _p1ViewModel = _resolver.GetViewModelInstance(InfoPageViewModelAlias);
+            _p2ViewModel = _resolver.GetViewModelInstance(ItemsPageViewModelAlias);
+            _p3ViewModel = _resolver.GetViewModelInstance(ShoppingCartPageViewModelAlias);
 
             InitializeCommands();
         }
@@ -38,64 +40,47 @@ namespace Trpz2.ViewModels
 
         private readonly IViewModelsResolver _resolver;
 
-        private ICommand _goToPathCommand;
+        private ICommand _goToInfoPageCommand;
 
-        private ICommand _goToPage1Command;
+        private ICommand _goToIemsPageCommand;
 
-        private ICommand _goToPage2Command;
+        private ICommand _goToShoppingCartPageCommand;
 
         private readonly INotifyPropertyChanged _p1ViewModel;
         private readonly INotifyPropertyChanged _p2ViewModel;
-
-        #region Startup string
-
-        private string _startupString = "Hello, world!";
-
-        public string StartupString
-        {
-            get
-            {
-                return _startupString;
-            }
-            set
-            {
-                SetProperty<string>(ref _startupString, value, "StartupString");
-            }
-        }
-
-        #endregion
+        private readonly INotifyPropertyChanged _p3ViewModel;
 
         #endregion
 
         #region Commands
 
-        public ICommand GoToPathCommand
+        public ICommand GoToInfoPageCommand
         {
-            get { return _goToPathCommand; }
+            get { return _goToInfoPageCommand; }
             set
             {
-                SetProperty(ref _goToPathCommand, value, "GoToPathCommand");
+                SetProperty(ref _goToInfoPageCommand, value, "GoToInfoPageCommand");
             }
         }
 
-        public ICommand GoToPage1Command
+        public ICommand GoToIemsPageCommand
         {
             get
             {
-                return _goToPage1Command;
+                return _goToIemsPageCommand;
             }
             set
             {
-                SetProperty(ref _goToPage1Command, value, "GoToPage1Command");
+                SetProperty(ref _goToIemsPageCommand, value, "GoToItemsPageCommand");
             }
         }
 
-        public ICommand GoToPage2Command
+        public ICommand GoToShoppingCartPageCommand
         {
-            get { return _goToPage2Command; }
+            get { return _goToShoppingCartPageCommand; }
             set
             {
-                SetProperty(ref _goToPage2Command, value, "GoToPage2Command");
+                SetProperty(ref _goToShoppingCartPageCommand, value, "GoToShoppingCartPageCommand");
             }
         }
 
@@ -109,27 +94,22 @@ namespace Trpz2.ViewModels
             get { return _p2ViewModel; }
         }
 
+        public INotifyPropertyChanged Page3ViewModel
+        {
+            get { return _p3ViewModel; }
+        }
+
         #endregion
 
         private void InitializeCommands()
         {
 
-            GoToPathCommand = new RelayCommand<string>(GoToPathCommandExecute);
+            GoToInfoPageCommand = new RelayCommand<INotifyPropertyChanged>(GoToPage1CommandExecute);
 
-            GoToPage1Command = new RelayCommand<INotifyPropertyChanged>(GoToPage1CommandExecute);
+            GoToIemsPageCommand = new RelayCommand<INotifyPropertyChanged>(GoToPage2CommandExecute);
 
-            GoToPage2Command = new RelayCommand<INotifyPropertyChanged>(GoToPage2CommandExecute);
+            GoToShoppingCartPageCommand = new RelayCommand<INotifyPropertyChanged>(GoToPage3CommandExecute);
 
-        }
-
-        private void GoToPathCommandExecute(string alias)
-        {
-            if (string.IsNullOrWhiteSpace(alias))
-            {
-                return;
-            }
-
-            Navigation.Navigate(alias);
         }
 
         private void GoToPage1CommandExecute(INotifyPropertyChanged viewModel)
@@ -140,6 +120,11 @@ namespace Trpz2.ViewModels
         private void GoToPage2CommandExecute(INotifyPropertyChanged viewModel)
         {
             Navigation.Navigate(Navigation.Page2Alias, Page2ViewModel);
+        }
+
+        private void GoToPage3CommandExecute(INotifyPropertyChanged viewModel)
+        {
+            Navigation.Navigate(Navigation.Page3Alias, Page3ViewModel);
         }
     }
 }

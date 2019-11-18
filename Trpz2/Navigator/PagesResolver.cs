@@ -13,8 +13,9 @@ namespace Trpz2.Navigator
 
         public PagesResolver()
         {
-            _pagesResolvers.Add(Navigation.Page1Alias, () => new Page1());
-            _pagesResolvers.Add(Navigation.Page2Alias, () => new Page2());
+            _pagesResolvers.Add(Navigation.Page1Alias, () => new InfoPage());
+            _pagesResolvers.Add(Navigation.Page2Alias, () => new ItemsPage());
+            _pagesResolvers.Add(Navigation.Page3Alias, () => new ShoppingCartPage());
         }
 
         public Page GetPageInstance(string alias)

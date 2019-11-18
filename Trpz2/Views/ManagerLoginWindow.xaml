@@ -5,8 +5,27 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Trpz2.Views"
         mc:Ignorable="d"
-        Title="ManagerLoginWindow" Height="450" Width="800">
+        Title="ManagerLoginWindow" Height="500" Width="300">
     <Grid>
-        
+        <StackPanel VerticalAlignment="Center">
+        <Label Content="Sign in" Height="28" HorizontalAlignment="Center" Name="label2" VerticalAlignment="Top" />
+            <StackPanel>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Label Content="Username: " Height="28" HorizontalAlignment="Left" Name="label3" VerticalAlignment="Top" />
+                    <TextBox Height="23" HorizontalAlignment="Center" Name="textBox1" VerticalAlignment="Top" Width="120" Text="{Binding UserName.DataValue, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}">
+                    </TextBox>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Label Content="Password: " Height="28" HorizontalAlignment="Left" Name="label4" VerticalAlignment="Top" />
+                    <PasswordBox Height="23" HorizontalAlignment="Center" Name="passwordBox1" VerticalAlignment="Top" Width="120"></PasswordBox>
+
+                </StackPanel>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 30">
+            <Button Content="Login" IsDefault="True" Height="23" HorizontalAlignment="Center" Name="button1" Command="{Binding LoginViewFiredCommand}" VerticalAlignment="Top" Width="75">
+            </Button>
+            <Button Content="Forgot?" Height="23" Width="75" Margin="20 0"></Button>
+        </StackPanel>
+        </StackPanel>
     </Grid>
 </Window>

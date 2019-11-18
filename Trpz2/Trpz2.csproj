@@ -61,31 +61,30 @@
     <Compile Include="Navigator\PagesResolver.cs" />
     <Compile Include="ViewModels\Base\BaseViewModel.cs" />
     <Compile Include="ViewModels\Base\IViewModelsResolver.cs" />
-    <Compile Include="ViewModels\Page1ViewModel.cs" />
-    <Compile Include="ViewModels\Page2ViewModel.cs" />
+    <Compile Include="ViewModels\InfoPageViewModel.cs" />
+    <Compile Include="ViewModels\ItemsPageViewModel.cs" />
     <Compile Include="ViewModels\Resolvers\ViewModelsResolver.cs" />
-    <Compile Include="Views\Pages\Page1.xaml.cs">
-      <DependentUpon>Page1.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Pages\Page2.xaml.cs">
-      <DependentUpon>Page2.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\UserMainWindow.xaml.cs">
-      <DependentUpon>UserMainWindow.xaml</DependentUpon>
+    <Compile Include="ViewModels\ShoppingCartPageViewModel.cs" />
+    <Compile Include="Views\Pages\InfoPage.xaml.cs">
+      <DependentUpon>InfoPage.xaml</DependentUpon>
     </Compile>
     <Page Include="Views\ManagerLoginWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Pages\Page1.xaml">
+    <Page Include="Views\Pages\InfoPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Pages\Page2.xaml">
+    <Page Include="Views\Pages\ItemsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\StartupWindow.xaml">
+    <Page Include="Views\Pages\ShoppingCartPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserMainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -97,14 +96,16 @@
     <Compile Include="Views\ManagerLoginWindow.xaml.cs">
       <DependentUpon>ManagerLoginWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\StartupWindow.xaml.cs">
-      <DependentUpon>StartupWindow.xaml</DependentUpon>
+    <Compile Include="Views\Pages\ItemsPage.xaml.cs">
+      <DependentUpon>ItemsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\ShoppingCartPage.xaml.cs">
+      <DependentUpon>ShoppingCartPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserMainWindow.xaml.cs">
+      <DependentUpon>UserMainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Views\UserMainWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">

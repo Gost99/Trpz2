@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace Trpz2.Views.Pages
 {
     /// <summary>
-    /// Interaction logic for Page1.xaml
+    /// Interaction logic for ItemsPage.xaml
     /// </summary>
-    public partial class Page1 : Page
+    public partial class ItemsPage : Page
     {
-        public Page1()
+        public ItemsPage()
         {
             InitializeComponent();
         }

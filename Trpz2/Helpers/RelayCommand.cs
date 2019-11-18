@@ -51,7 +51,7 @@ namespace Trpz2.Helpers
 
         public void Execute(object parameter)
         {
-            if (parameter is T)
+            +if (parameter is T)
             {
                 var typedParameter = (T)parameter;
                 _execute(typedParameter);

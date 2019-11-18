@@ -9,8 +9,9 @@ namespace Trpz2.Navigator
     {
         #region Constants
 
-        public static readonly string Page1Alias = "Page1";
-        public static readonly string Page2Alias = "Page2";
+        public static readonly string Page1Alias = "InfoPage";
+        public static readonly string Page2Alias = "ItemsPage";
+        public static readonly string Page3Alias = "ShoppingCartPage";
 
         #endregion
 

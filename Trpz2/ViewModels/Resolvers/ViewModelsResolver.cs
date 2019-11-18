@@ -12,8 +12,9 @@ namespace Trpz2.ViewModels.Resolvers
 
         public ViewModelsResolver()
         {
-            _vmResolvers.Add(StartupWindowViewModel.Page1ViewModelAlias, () => new Page1ViewModel());
-            _vmResolvers.Add(StartupWindowViewModel.Page2ViewModelAlias, () => new Page2ViewModel());
+            _vmResolvers.Add(StartupWindowViewModel.InfoPageViewModelAlias, () => new InfoPageViewModel());
+            _vmResolvers.Add(StartupWindowViewModel.ItemsPageViewModelAlias, () => new ItemsPageViewModel());
+            _vmResolvers.Add(StartupWindowViewModel.ShoppingCartPageViewModelAlias, () => new ShoppingCartPageViewModel());
         }
 
         public INotifyPropertyChanged GetViewModelInstance(string alias)
