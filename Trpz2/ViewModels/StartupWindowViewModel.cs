@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
 using System.Windows.Input;
 using Trpz2.Helpers;
-using Trpz2.ViewModels.Base;
 using Trpz2.Navigator;
+using Trpz2.ViewModels.Base;
 
 namespace Trpz2.ViewModels
 {
@@ -42,7 +37,7 @@ namespace Trpz2.ViewModels
 
         private ICommand _goToInfoPageCommand;
 
-        private ICommand _goToIemsPageCommand;
+        private ICommand _goToItemsPageCommand;
 
         private ICommand _goToShoppingCartPageCommand;
 
@@ -63,15 +58,15 @@ namespace Trpz2.ViewModels
             }
         }
 
-        public ICommand GoToIemsPageCommand
+        public ICommand GoToItemsPageCommand
         {
             get
             {
-                return _goToIemsPageCommand;
+                return _goToItemsPageCommand;
             }
             set
             {
-                SetProperty(ref _goToIemsPageCommand, value, "GoToItemsPageCommand");
+                SetProperty(ref _goToItemsPageCommand, value, "GoToItemsPageCommand");
             }
         }
 
@@ -84,17 +79,17 @@ namespace Trpz2.ViewModels
             }
         }
 
-        public INotifyPropertyChanged Page1ViewModel
+        public INotifyPropertyChanged InfoPageViewModel
         {
             get { return _p1ViewModel; }
         }
 
-        public INotifyPropertyChanged Page2ViewModel
+        public INotifyPropertyChanged ItemsPageViewModel
         {
             get { return _p2ViewModel; }
         }
 
-        public INotifyPropertyChanged Page3ViewModel
+        public INotifyPropertyChanged ShoppingCartPageViewModel
         {
             get { return _p3ViewModel; }
         }
@@ -104,27 +99,18 @@ namespace Trpz2.ViewModels
         private void InitializeCommands()
         {
 
-            GoToInfoPageCommand = new RelayCommand<INotifyPropertyChanged>(GoToPage1CommandExecute);
+            GoToInfoPageCommand = new RelayCommand<INotifyPropertyChanged>((viewModel) => {
+                Navigation.Navigate(Navigation.Page1Alias, InfoPageViewModel);
+            });
 
-            GoToIemsPageCommand = new RelayCommand<INotifyPropertyChanged>(GoToPage2CommandExecute);
+            GoToItemsPageCommand = new RelayCommand<INotifyPropertyChanged>((viewModel) => {
+                Navigation.Navigate(Navigation.Page2Alias, ItemsPageViewModel);
+            });
 
-            GoToShoppingCartPageCommand = new RelayCommand<INotifyPropertyChanged>(GoToPage3CommandExecute);
+            GoToShoppingCartPageCommand = new RelayCommand<INotifyPropertyChanged>((viewModel) => {
+                Navigation.Navigate(Navigation.Page3Alias, ShoppingCartPageViewModel);
+            });
 
-        }
-
-        private void GoToPage1CommandExecute(INotifyPropertyChanged viewModel)
-        {
-            Navigation.Navigate(Navigation.Page1Alias, Page1ViewModel);
-        }
-
-        private void GoToPage2CommandExecute(INotifyPropertyChanged viewModel)
-        {
-            Navigation.Navigate(Navigation.Page2Alias, Page2ViewModel);
-        }
-
-        private void GoToPage3CommandExecute(INotifyPropertyChanged viewModel)
-        {
-            Navigation.Navigate(Navigation.Page3Alias, Page3ViewModel);
         }
     }
 }

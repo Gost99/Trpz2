@@ -1,14 +1,18 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace Trpz2.Helpers
 {
-    public class RelayCommand<T> : ICommand
+    public class SimpleCommand : ICommand
     {
         #region Fields
 
-        private readonly Action<T> _execute = null;
+        private readonly Action _execute = null;
         private readonly Predicate<object> _canExecute = null;
 
         #endregion
@@ -16,12 +20,12 @@ namespace Trpz2.Helpers
 
         #region Constructors
 
-        public RelayCommand(Action<T> execute)
+        public SimpleCommand(Action execute)
             : this(execute, null)
         {
         }
 
-        public RelayCommand(Action<T> execute, Predicate<object> canExecute)
+        public SimpleCommand(Action execute, Predicate<object> canExecute)
         {
             if (execute == null)
             {
@@ -51,11 +55,7 @@ namespace Trpz2.Helpers
 
         public void Execute(object parameter)
         {
-            if (parameter is T)
-            {
-                var typedParameter = (T)parameter;
-                _execute(typedParameter);
-            }
+            _execute();
         }
 
         #endregion

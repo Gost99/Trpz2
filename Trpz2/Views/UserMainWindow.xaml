@@ -12,7 +12,7 @@
             <DockPanel>
                 <Button DockPanel.Dock="Right" Grid.Column="1" Margin="5">To manager page</Button>
             </DockPanel>
-            <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Hidden">
+            <!--<ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Hidden">-->
                 <Grid Height="40px" Margin="10px">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition></ColumnDefinition>
@@ -20,10 +20,10 @@
                         <ColumnDefinition></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <Button Grid.Column="0" Content="Info" Command="{Binding GoToInfoPageCommand}" CommandParameter="{Binding InfoPageViewModel}"/>
-                    <Button Grid.Column="1" Content="Items" Command="{Binding GoTotemsPageCommand}" CommandParameter="{Binding ItemsPageViewModel}"/>
+                    <Button Grid.Column="1" Content="Items" Command="{Binding GoToItemsPageCommand}" CommandParameter="{Binding ItemsPageViewModel}"/>
                     <Button Grid.Column="2" Content="Shopping cart" Command="{Binding GoToShoppingCartPageCommand}" CommandParameter="{Binding ShoppingCartPageViewModel}"/>
                 </Grid>
-            </ScrollViewer>
+            <!--</ScrollViewer>-->
             <Frame x:Name="MainFrame" Background="#CCCCCC"/>
         </StackPanel>
     </Grid>
