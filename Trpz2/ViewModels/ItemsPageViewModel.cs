@@ -12,14 +12,31 @@ namespace Trpz2.ViewModels
         public Item SelectedItem { get; set; }
         public ObservableCollection<Item> Items { get; private set; }
 
+        private PermissionClass _currentPermission;
+
         #region Ctors
 
-        public ItemsPageViewModel()
+        public ItemsPageViewModel(PermissionClass permission)
         {
             Items = new ObservableCollection<Item>(MockData.MockItems);
+            _currentPermission = permission;
         }
 
+        public ItemsPageViewModel()
+            :this(PermissionClass.User)
+        { }
+
         #endregion
+
+        public bool IsAdminOrModeratorGranted
+        {
+            get
+            {
+                return this._currentPermission == PermissionClass.Admin || this._currentPermission == PermissionClass.Moderator;
+            }
+        }
+
+        public bool IsNotAdminOrModeratorGranted => !IsAdminOrModeratorGranted;
 
         #region Commands
 
@@ -80,8 +97,6 @@ namespace Trpz2.ViewModels
                         ItemInfo.Price = SelectedItem?.Price;
                     }));
 
-
-
         #endregion
 
         #region Client commands
@@ -93,7 +108,7 @@ namespace Trpz2.ViewModels
                 (_addItemToShoppingCartCommand = new SimpleCommand(
                     () =>
                     {
-       
+                        //Shopping cart logic
                     }));
 
         #endregion

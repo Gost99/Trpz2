@@ -1,13 +1,27 @@
 ﻿using System.ComponentModel;
 using System.Windows.Input;
 using Trpz2.Helpers;
+using Trpz2.Models;
 using Trpz2.Navigator;
 using Trpz2.ViewModels.Base;
+using Trpz2.Views;
 
 namespace Trpz2.ViewModels
 {
     public class StartupWindowViewModel : Base.BaseViewModel
     {
+        private PermissionClass _currentPermission;
+
+        public PermissionClass Permission { set { _currentPermission = value; } }
+
+        public string CurrentRole
+        {
+            get
+            {
+                return $"Current role: {_currentPermission}";
+            }
+        }
+
         #region Consts
 
         public static readonly string InfoPageViewModelAlias = "InfoPageVM";
@@ -29,6 +43,29 @@ namespace Trpz2.ViewModels
             InitializeCommands();
         }
 
+        public StartupWindowViewModel(IViewModelsResolver resolver, PermissionClass currentPermission) : this(resolver)
+        {
+            this._currentPermission = currentPermission;
+            _p2ViewModel = _resolver.GetViewModelInstance(ItemsPageViewModelAlias, currentPermission);
+        }
+
+        private void InitializeCommands()
+        {
+
+            GoToInfoPageCommand = new RelayCommand<INotifyPropertyChanged>((viewModel) => {
+                Navigation.Navigate(Navigation.Page1Alias, InfoPageViewModel);
+            });
+
+            GoToItemsPageCommand = new RelayCommand<INotifyPropertyChanged>((viewModel) => {
+                Navigation.Navigate(Navigation.Page2Alias, ItemsPageViewModel);
+            });
+
+            GoToShoppingCartPageCommand = new RelayCommand<INotifyPropertyChanged>((viewModel) => {
+                Navigation.Navigate(Navigation.Page3Alias, ShoppingCartPageViewModel);
+            });
+
+        }
+
         #endregion
 
         #region Fields  
@@ -41,9 +78,12 @@ namespace Trpz2.ViewModels
 
         private ICommand _goToShoppingCartPageCommand;
 
+        private ICommand _openManagerLoginPageCommand;
+        
         private readonly INotifyPropertyChanged _p1ViewModel;
         private readonly INotifyPropertyChanged _p2ViewModel;
         private readonly INotifyPropertyChanged _p3ViewModel;
+
 
         #endregion
 
@@ -79,6 +119,15 @@ namespace Trpz2.ViewModels
             }
         }
 
+        public ICommand OpenManagerLoginPageCommand => _openManagerLoginPageCommand ?? 
+            (_openManagerLoginPageCommand = new SimpleCommand(() => {
+                ManagerLoginWindow passwordWindow = new ManagerLoginWindow();
+
+                passwordWindow.ShowDialog();
+            }));
+
+        #endregion
+
         public INotifyPropertyChanged InfoPageViewModel
         {
             get { return _p1ViewModel; }
@@ -94,23 +143,8 @@ namespace Trpz2.ViewModels
             get { return _p3ViewModel; }
         }
 
-        #endregion
 
-        private void InitializeCommands()
-        {
 
-            GoToInfoPageCommand = new RelayCommand<INotifyPropertyChanged>((viewModel) => {
-                Navigation.Navigate(Navigation.Page1Alias, InfoPageViewModel);
-            });
 
-            GoToItemsPageCommand = new RelayCommand<INotifyPropertyChanged>((viewModel) => {
-                Navigation.Navigate(Navigation.Page2Alias, ItemsPageViewModel);
-            });
-
-            GoToShoppingCartPageCommand = new RelayCommand<INotifyPropertyChanged>((viewModel) => {
-                Navigation.Navigate(Navigation.Page3Alias, ShoppingCartPageViewModel);
-            });
-
-        }
     }
 }

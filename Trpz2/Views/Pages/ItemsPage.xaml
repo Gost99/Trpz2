@@ -15,6 +15,7 @@
             <Setter Property="CanUserAddRows" Value="False"/>
             <Setter Property="CanUserDeleteRows" Value="False"/>
         </Style>
+        <BooleanToVisibilityConverter x:Key="BoolToVis" />
     </Page.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -38,7 +39,7 @@
 
         </ContentControl>
         <TabControl Grid.Column="1">
-            <TabItem x:Name="ClientTab" Header="Client">
+            <TabItem x:Name="ClientTab" Header="Client" Visibility="{Binding Path=IsNotAdminOrModeratorGranted, Converter={StaticResource BoolToVis}}">
                 <Border  BorderThickness="1" Margin="50" CornerRadius="10" BorderBrush="LightBlue">
                     <Grid>
                         <Grid.RowDefinitions>
@@ -70,7 +71,7 @@
                 </Border>
             </TabItem>
 
-            <TabItem x:Name="CrudTab" Header="Edit" Visibility="Hidden">
+            <TabItem x:Name="CrudTab" Header="Edit" Visibility="{Binding Path=IsAdminOrModeratorGranted, Converter={StaticResource BoolToVis}}">
                 <!-- < Items CRUD > -->
                 <Border  BorderThickness="1" Margin="50" CornerRadius="10" BorderBrush="LightBlue">
                     <Grid>

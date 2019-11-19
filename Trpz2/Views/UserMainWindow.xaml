@@ -10,9 +10,9 @@
     <Grid>
         <StackPanel>
             <DockPanel>
-                <Button DockPanel.Dock="Right" Grid.Column="1" Margin="5">To manager page</Button>
+                <TextBlock DockPanel.Dock="Left" Text="{Binding CurrentRole}"></TextBlock>
+                <Button DockPanel.Dock="Right" Margin="5" Content="To manager page" MaxWidth="200px" Command="{Binding OpenManagerLoginPageCommand}"></Button>
             </DockPanel>
-            <!--<ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Hidden">-->
                 <Grid Height="40px" Margin="10px">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition></ColumnDefinition>
@@ -23,7 +23,6 @@
                     <Button Grid.Column="1" Content="Items" Command="{Binding GoToItemsPageCommand}" CommandParameter="{Binding ItemsPageViewModel}"/>
                     <Button Grid.Column="2" Content="Shopping cart" Command="{Binding GoToShoppingCartPageCommand}" CommandParameter="{Binding ShoppingCartPageViewModel}"/>
                 </Grid>
-            <!--</ScrollViewer>-->
             <Frame x:Name="MainFrame" Background="#CCCCCC"/>
         </StackPanel>
     </Grid>

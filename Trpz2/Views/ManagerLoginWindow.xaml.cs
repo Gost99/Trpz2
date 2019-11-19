@@ -11,6 +11,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Trpz2.ViewModels;
+using Trpz2.Views.Interfaces;
 
 namespace Trpz2.Views
 {
@@ -22,6 +24,22 @@ namespace Trpz2.Views
         public ManagerLoginWindow()
         {
             InitializeComponent();
+
+            this.DataContext = new ManagerLoginWindowViewModel();
+
+            Loaded += (s, e) =>
+            {
+                if (DataContext is IClosable)
+                {
+                    (DataContext as IClosable).RequestClose += (_, __) => this.Close();
+                }
+                if (DataContext is IWarningShowable)
+                {
+                    (DataContext as IWarningShowable).RequestDialogBoxShow += (_, __) => MessageBox.Show("Incorrect creditinals!!!");
+                }
+
+            };
         }
+
     }
 }
