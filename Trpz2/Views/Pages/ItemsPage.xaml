@@ -4,7 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
-
+      xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
       xmlns:local="clr-namespace:Trpz2.Views.Pages"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
@@ -63,7 +63,8 @@
                         <TextBox Grid.Row="2" Grid.Column="1" Margin="3" IsReadOnly="True" Text="{Binding ItemInfo.Price, Mode=OneWay}"/>
 
                         <StackPanel Orientation="Horizontal" FlowDirection="RightToLeft"  Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Width="{Binding RelativeSource={RelativeSource AncestorType=Grid, Mode=FindAncestor}, Path=ActualWidth}">
-                            <Button Margin="5" Padding="10,0,10,0" Content="Add to shopping cart" Command="{Binding AddItemToShoppingCartCommand}"/>
+                            <Button Margin="5" Padding="10,0,10,0" Content="Add to shopping cart" Command="{Binding AddItemToShoppingCartCommand}" CommandParameter="{Binding ElementName=myUpDownControl}"/>
+                            <xctk:IntegerUpDown Name="myUpDownControl" />
                         </StackPanel>
 
 

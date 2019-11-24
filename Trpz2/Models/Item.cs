@@ -5,9 +5,20 @@ namespace Trpz2.Models
 {
     public class Item: INotifyPropertyChanged
     {
+        private long _id;
         private string _name;
         private string _description;
         private double _price;
+
+        public long Id
+        {   
+            get => _id;
+            set
+            {
+                _id = value;
+                OnPropertyChanged();
+            }
+        }
 
         public string Name { 
             get => _name;

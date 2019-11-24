@@ -26,7 +26,6 @@ namespace Trpz2.Navigator
             }
 
             return default;
-            //return _pagesResolvers[Navigation.NotFoundPageAlias]();
         }
     }
 }

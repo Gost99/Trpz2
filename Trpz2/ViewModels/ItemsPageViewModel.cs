@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
+using Trpz2.DataContainer.Repositories;
 using Trpz2.Helpers;
 using Trpz2.Models;
 
@@ -10,7 +12,9 @@ namespace Trpz2.ViewModels
     {
         public Item ItemInfo { get; set; } = new Item();
         public Item SelectedItem { get; set; }
-        public ObservableCollection<Item> Items { get; private set; }
+        public ItemsRepository itemsRepository;
+
+        public ObservableCollection<Item> Items { get; set; }
 
         private PermissionClass _currentPermission;
 
@@ -18,7 +22,8 @@ namespace Trpz2.ViewModels
 
         public ItemsPageViewModel(PermissionClass permission)
         {
-            Items = new ObservableCollection<Item>(MockData.MockItems);
+            itemsRepository = new ItemsRepository(MockData.MockItems);
+            Items = new ObservableCollection<Item>(itemsRepository.GetAll());
             _currentPermission = permission;
         }
 
@@ -61,7 +66,7 @@ namespace Trpz2.ViewModels
         
                         App.Current.Dispatcher.BeginInvoke((Action)delegate ()
                         {
-                            Items.Add(itemToAdd);
+                            itemsRepository.Insert(itemToAdd);
                         });
                     }));
 
@@ -70,6 +75,7 @@ namespace Trpz2.ViewModels
             (_updateItemCommand = new SimpleCommand(
                 () =>
                 {
+                    itemsRepository.Update(SelectedItem.Id, ItemInfo);
                     if(SelectedItem != null)
                     {
                         SelectedItem.Name = ItemInfo.Name;
@@ -83,7 +89,7 @@ namespace Trpz2.ViewModels
             (_deleteItemCommand = new SimpleCommand(
                 () =>
                 {
-                    Items.Remove(SelectedItem);
+                    itemsRepository.Delete(SelectedItem.Id);
                 }));
 
         public ICommand ItemsGridSelectionChangedCommand =>
@@ -103,12 +109,12 @@ namespace Trpz2.ViewModels
 
         private ICommand _addItemToShoppingCartCommand;
         
-        public ICommand AddIteAddItemToShoppingCartCommandmCommand =>
+        public ICommand AddItemToShoppingCartCommand =>
                 _addItemToShoppingCartCommand ??
-                (_addItemToShoppingCartCommand = new SimpleCommand(
-                    () =>
+                (_addItemToShoppingCartCommand = new RelayCommand<int>(
+                    (countOfItems) =>
                     {
-                        //Shopping cart logic
+                        throw new Exception(countOfItems.ToString());
                     }));
 
         #endregion
