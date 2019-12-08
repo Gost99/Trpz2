@@ -24,7 +24,7 @@
         </Grid.ColumnDefinitions>
 
         <ContentControl Grid.Column="0" Grid.Row="0" MaxHeight="250px" >
-            <DataGrid x:Name="ItemsGrid" ItemsSource="{Binding Items}" SelectedItem="{Binding SelectedItem, Mode=TwoWay}">
+            <DataGrid x:Name="ItemsGrid" ItemsSource="{Binding Items}" SelectedItem="{Binding SelectedProduct, Mode=TwoWay}">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
                     <DataGridTextColumn Header="Description" Binding="{Binding Description}"/>
@@ -58,9 +58,9 @@
                         <TextBlock Grid.Row="1" Grid.Column="0" Margin="5" Text="{Binding ElementName=ItemsGrid, Path=Columns[1].Header, StringFormat={}{0}:}"/>
                         <TextBlock Grid.Row="2" Grid.Column="0" Margin="5" Text="{Binding ElementName=ItemsGrid, Path=Columns[2].Header, StringFormat={}{0}:}"/>
 
-                        <TextBox Grid.Row="0" Grid.Column="1" Margin="3" IsReadOnly="True" Text="{Binding ItemInfo.Name, Mode=OneWay}"/>
-                        <TextBox Grid.Row="1" Grid.Column="1" Margin="3" IsReadOnly="True" Text="{Binding ItemInfo.Description, Mode=OneWay}"/>
-                        <TextBox Grid.Row="2" Grid.Column="1" Margin="3" IsReadOnly="True" Text="{Binding ItemInfo.Price, Mode=OneWay}"/>
+                        <TextBox Grid.Row="0" Grid.Column="1" Margin="3" IsReadOnly="True" Text="{Binding ProductInfo.Name, Mode=OneWay}"/>
+                        <TextBox Grid.Row="1" Grid.Column="1" Margin="3" IsReadOnly="True" Text="{Binding ProductInfo.Description, Mode=OneWay}"/>
+                        <TextBox Grid.Row="2" Grid.Column="1" Margin="3" IsReadOnly="True" Text="{Binding ProductInfo.Price, Mode=OneWay}"/>
 
                         <StackPanel Orientation="Horizontal" FlowDirection="RightToLeft"  Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Width="{Binding RelativeSource={RelativeSource AncestorType=Grid, Mode=FindAncestor}, Path=ActualWidth}">
                             <Button Margin="5" Padding="10,0,10,0" Content="Add to shopping cart" Command="{Binding AddItemToShoppingCartCommand}" CommandParameter="{Binding ElementName=myUpDownControl}"/>
@@ -92,9 +92,9 @@
                         <TextBlock Grid.Row="1" Grid.Column="0" Margin="5" Text="{Binding ElementName=ItemsGrid, Path=Columns[1].Header, StringFormat={}{0}:}"/>
                         <TextBlock Grid.Row="2" Grid.Column="0" Margin="5" Text="{Binding ElementName=ItemsGrid, Path=Columns[2].Header, StringFormat={}{0}:}"/>
 
-                        <TextBox Grid.Row="0" Grid.Column="1" Margin="3" Text="{Binding ItemInfo.Name, Mode=TwoWay}"/>
-                        <TextBox Grid.Row="1" Grid.Column="1" Margin="3" Text="{Binding ItemInfo.Description, Mode=TwoWay}"/>
-                        <TextBox Grid.Row="2" Grid.Column="1" Margin="3" Text="{Binding ItemInfo.Price, Mode=TwoWay}"/>
+                        <TextBox Grid.Row="0" Grid.Column="1" Margin="3" Text="{Binding ProductInfo.Name, Mode=TwoWay}"/>
+                        <TextBox Grid.Row="1" Grid.Column="1" Margin="3" Text="{Binding ProductInfo.Description, Mode=TwoWay}"/>
+                        <TextBox Grid.Row="2" Grid.Column="1" Margin="3" Text="{Binding ProductInfo.Price, Mode=TwoWay}"/>
 
                         <StackPanel Orientation="Horizontal" FlowDirection="RightToLeft"  Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Width="{Binding RelativeSource={RelativeSource AncestorType=Grid, Mode=FindAncestor}, Path=ActualWidth}">
                             <Button Margin="5" Padding="10,0,10,0" Content="Delete" Command="{Binding DeleteItemCommand}"/>

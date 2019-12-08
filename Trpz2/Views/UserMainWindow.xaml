@@ -7,6 +7,40 @@
         mc:Ignorable="d"
         Title="StartupWindow" Height="450" Width="800"
         Loaded="Window_Loaded">
+    <!--<Window.Resources>
+        <PathGeometry x:Key="path">
+            <PathFigure IsClosed="True">
+                <ArcSegment Point="1,0"
+            Size="50,25"
+            IsLargeArc="True"/>
+            </PathFigure>
+        </PathGeometry>
+        <Storyboard x:Key="storyboard"
+        Storyboard.TargetName="rect">
+            <DoubleAnimationUsingPath
+      Storyboard.TargetProperty="(Canvas.Left)"
+      PathGeometry="{StaticResource path}"
+      Source="X" Duration="0:0:5"/>
+            <DoubleAnimationUsingPath
+      Storyboard.TargetProperty="(Canvas.Top)"
+      PathGeometry="{StaticResource path}"
+      Source="Y" Duration="0:0:5"/>
+        </Storyboard>
+    </Window.Resources>
+    <Canvas>
+        <Path Data="{StaticResource path}"
+     StrokeThickness="2" Stroke="Black"
+     Canvas.Left="50"/>
+        <Rectangle x:Name="rect" Stroke="Black"
+        StrokeThickness="2" Width="10"
+        Height="10">
+            <Rectangle.RenderTransform>
+                <TranslateTransform X="45" Y="-5"/>
+            </Rectangle.RenderTransform>
+        </Rectangle>
+    </Canvas>-->
+
+
     <Grid>
         <StackPanel>
             <DockPanel>
@@ -22,7 +56,33 @@
                     <Button Grid.Column="0" Content="Info" Command="{Binding GoToInfoPageCommand}" CommandParameter="{Binding InfoPageViewModel}"/>
                     <Button Grid.Column="1" Content="Items" Command="{Binding GoToItemsPageCommand}" CommandParameter="{Binding ItemsPageViewModel}"/>
                     <Button Grid.Column="2" Content="Shopping cart" Command="{Binding GoToShoppingCartPageCommand}" CommandParameter="{Binding ShoppingCartPageViewModel}"/>
-                </Grid>
+                
+                    
+                    <Button Margin="90,100,168,-100" Grid.ColumnSpan="2" Content="Press pls">
+                    <Button.Style>
+                        <Style>
+                            <Style.Triggers>
+                                <Trigger Property="Button.IsPressed" Value="True">
+                                    <Trigger.EnterActions>
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <ThicknessAnimation
+                                                  From="0" To="500"
+                                                  Duration="0:1:0"
+                                                  Storyboard.TargetProperty
+                                                  ="Margin"/>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </Trigger.EnterActions>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
+
+                
+                
+            </Grid>
             <Frame x:Name="MainFrame" Background="#CCCCCC"/>
         </StackPanel>
     </Grid>

@@ -32,7 +32,7 @@ namespace Trpz2.ViewModels
 
                 if(!string.IsNullOrEmpty(UserName) && password.Length > 0)
                 {
-                    User userToContinue = new User() { Login = UserName, Password = password, Permission = PermissionClass.Admin };
+                    AdminDto userToContinue = new AdminDto() { Username = UserName, Password = password, Permission = PermissionClass.Admin };
 
                     if (UserPermissionChecker.CheckPermission(userToContinue))
                     {

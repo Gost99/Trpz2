@@ -2,19 +2,20 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
-using Trpz2.DataContainer.Repositories;
 using Trpz2.Helpers;
 using Trpz2.Models;
+using Trpz2.Services;
+using Trpz2.Services.Abstractions;
 
 namespace Trpz2.ViewModels
 {
     public class ItemsPageViewModel: Base.BaseViewModel
     {
-        public Item ItemInfo { get; set; } = new Item();
-        public Item SelectedItem { get; set; }
-        public ItemsRepository itemsRepository;
+        public ProductDto ProductInfo { get; set; } = new ProductDto();
+        public ProductDto SelectedProduct { get; set; }
+        private IProductService _productService;
 
-        public ObservableCollection<Item> Items { get; set; }
+        public ObservableCollection<ProductDto> Items { get; set; }
 
         private PermissionClass _currentPermission;
 
@@ -22,8 +23,8 @@ namespace Trpz2.ViewModels
 
         public ItemsPageViewModel(PermissionClass permission)
         {
-            itemsRepository = new ItemsRepository(MockData.MockItems);
-            Items = new ObservableCollection<Item>(itemsRepository.GetAll());
+            _productService = new ProductService();
+            OnListChange();
             _currentPermission = permission;
         }
 
@@ -32,6 +33,11 @@ namespace Trpz2.ViewModels
         { }
 
         #endregion
+
+        private void OnListChange()
+        {
+            Items = new ObservableCollection<ProductDto>(_productService.GetAll());
+        }
 
         public bool IsAdminOrModeratorGranted
         {
@@ -57,17 +63,14 @@ namespace Trpz2.ViewModels
                 (_addItemCommand = new SimpleCommand(
                     () =>
                     {
-                        var itemToAdd = new Item
+                        var itemToAdd = new ProductDto
                         {
-                            Name = ItemInfo.Name,
-                            Description = ItemInfo.Description,
-                            Price = ItemInfo.Price
+                            Name = ProductInfo.Name,
+                            Description = ProductInfo.Description,
+                            Price = ProductInfo.Price
                         };
-        
-                        App.Current.Dispatcher.BeginInvoke((Action)delegate ()
-                        {
-                            itemsRepository.Insert(itemToAdd);
-                        });
+                        _productService.Create(itemToAdd);
+                        Items.Add(itemToAdd);
                     }));
 
         public ICommand UpdateItemCommand =>
@@ -75,12 +78,13 @@ namespace Trpz2.ViewModels
             (_updateItemCommand = new SimpleCommand(
                 () =>
                 {
-                    itemsRepository.Update(SelectedItem.Id, ItemInfo);
-                    if(SelectedItem != null)
+                    var itemToUpdate = ProductInfo;
+                    _productService.Update(itemToUpdate);
+                    if (SelectedProduct != null)
                     {
-                        SelectedItem.Name = ItemInfo.Name;
-                        SelectedItem.Description = ItemInfo.Description;
-                        SelectedItem.Price = ItemInfo.Price;
+                        SelectedProduct.Name = ProductInfo.Name;
+                        SelectedProduct.Description = ProductInfo.Description;
+                        SelectedProduct.Price = ProductInfo.Price;
                     }
                 }));
 
@@ -89,7 +93,8 @@ namespace Trpz2.ViewModels
             (_deleteItemCommand = new SimpleCommand(
                 () =>
                 {
-                    itemsRepository.Delete(SelectedItem.Id);
+                    _productService.Delete((int)SelectedProduct.Id);
+                    Items.Remove(SelectedProduct);
                 }));
 
         public ICommand ItemsGridSelectionChangedCommand =>
@@ -98,9 +103,10 @@ namespace Trpz2.ViewModels
                 new SimpleCommand(
                     () =>
                     {
-                        ItemInfo.Name = SelectedItem?.Name;
-                        ItemInfo.Description = SelectedItem?.Description;
-                        ItemInfo.Price = SelectedItem?.Price;
+                        ProductInfo.Id = SelectedProduct == null ? 0 : SelectedProduct.Id;
+                        ProductInfo.Name = SelectedProduct?.Name;
+                        ProductInfo.Description = SelectedProduct?.Description;
+                        ProductInfo.Price = SelectedProduct == null ? 0 : SelectedProduct.Price;
                     }));
 
         #endregion
@@ -120,12 +126,5 @@ namespace Trpz2.ViewModels
         #endregion
 
         #endregion
-    }
-
-    internal class ItemInfo
-    {
-        public string Name { get; set; }
-        public string Description { get; set; }
-        public double Price { get; set; }
     }
 }

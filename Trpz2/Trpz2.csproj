@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\EntityFramework.6.3.0\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.3.0\build\EntityFramework.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -14,6 +15,8 @@
     <WarningLevel>4</WarningLevel>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -35,10 +38,20 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=9.0.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.9.0.0\lib\net461\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.3.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.3.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Expression.Interactions, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Windows.Interactivity.WPF.2.0.20525\lib\net40\Microsoft.Expression.Interactions.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
     <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Windows.Interactivity.WPF.2.0.20525\lib\net40\System.Windows.Interactivity.dll</HintPath>
@@ -76,17 +89,46 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="DataContainer\Abstractions\IRepository.cs" />
-    <Compile Include="DataContainer\Repositories\ItemsRepository.cs" />
+    <Compile Include="EntityFramework\Interfaces\IRepository.cs" />
+    <Compile Include="EntityFramework\Models\Administrator.cs" />
+    <Compile Include="EntityFramework\Models\Order.cs" />
+    <Compile Include="EntityFramework\Models\Product.cs" />
+    <Compile Include="EntityFramework\Models\SpecialOffer.cs" />
+    <Compile Include="EntityFramework\Models\Tag.cs" />
+    <Compile Include="EntityFramework\Repositories\AdminRepository.cs" />
+    <Compile Include="EntityFramework\Repositories\OrderRepository.cs" />
+    <Compile Include="EntityFramework\Repositories\ProductRepository.cs" />
+    <Compile Include="EntityFramework\Repositories\SpecialOfferRepository.cs" />
+    <Compile Include="EntityFramework\Repositories\TagRepository.cs" />
+    <Compile Include="EntityFramework\StoreContext.cs" />
     <Compile Include="Helpers\MockData.cs" />
     <Compile Include="Helpers\Command\RelayCommand.cs" />
     <Compile Include="Helpers\Command\SimpleCommand.cs" />
     <Compile Include="Helpers\UserPermissionChecker.cs" />
-    <Compile Include="Models\Item.cs" />
-    <Compile Include="Models\User.cs" />
+    <Compile Include="Migrations\201911300750052_InitialCreate.cs" />
+    <Compile Include="Migrations\201911300750052_InitialCreate.designer.cs">
+      <DependentUpon>201911300750052_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201911300756034_ProductTagToNullable.cs" />
+    <Compile Include="Migrations\201911300756034_ProductTagToNullable.designer.cs">
+      <DependentUpon>201911300756034_ProductTagToNullable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201911300837379_Added_PriceField_To_SpecialOffer.cs" />
+    <Compile Include="Migrations\201911300837379_Added_PriceField_To_SpecialOffer.designer.cs">
+      <DependentUpon>201911300837379_Added_PriceField_To_SpecialOffer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\OrderDto.cs" />
+    <Compile Include="Models\PermissionClass.cs" />
+    <Compile Include="Models\ProductDto.cs" />
+    <Compile Include="Models\AdminDto.cs" />
+    <Compile Include="Models\SpecialOfferDto.cs" />
+    <Compile Include="Models\TagDto.cs" />
     <Compile Include="Navigator\Interfaces\IPageResolver.cs" />
     <Compile Include="Navigator\Navigation.cs" />
     <Compile Include="Navigator\PagesResolver.cs" />
+    <Compile Include="Services\Abstractions\IProductService.cs" />
+    <Compile Include="Services\ProductService.cs" />
     <Compile Include="ViewModels\Base\BaseViewModel.cs" />
     <Compile Include="ViewModels\Base\IViewModelsResolver.cs" />
     <Compile Include="ViewModels\InfoPageViewModel.cs" />
@@ -151,6 +193,15 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <EmbeddedResource Include="Migrations\201911300750052_InitialCreate.resx">
+      <DependentUpon>201911300750052_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201911300756034_ProductTagToNullable.resx">
+      <DependentUpon>201911300756034_ProductTagToNullable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201911300837379_Added_PriceField_To_SpecialOffer.resx">
+      <DependentUpon>201911300837379_Added_PriceField_To_SpecialOffer.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -166,4 +217,12 @@
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\EntityFramework.6.3.0\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.3.0\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.3.0\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.3.0\build\EntityFramework.targets'))" />
+  </Target>
+  <Import Project="..\packages\EntityFramework.6.3.0\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.3.0\build\EntityFramework.targets')" />
 </Project>

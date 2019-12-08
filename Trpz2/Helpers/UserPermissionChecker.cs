@@ -6,12 +6,12 @@ namespace Trpz2.Helpers
 {
     public static class UserPermissionChecker
     {
-        private static IEnumerable<User> registeredUsers = new List<User>()
+        private static IEnumerable<AdminDto> registeredUsers = new List<AdminDto>()
         {
-            new User(){ Login = "1", Password = "1", Permission = PermissionClass.Admin}
+            new AdminDto(){ Username = "Misha", Password = "1", Permission = PermissionClass.Admin}
         };
 
-        public static bool CheckPermission(User userToCheck)
+        public static bool CheckPermission(AdminDto userToCheck)
         {
             if (registeredUsers.Contains(userToCheck))
                 return true;

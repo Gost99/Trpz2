@@ -1,4 +1,6 @@
 ﻿using System.Windows;
+using Trpz2.EntityFramework;
+using Trpz2.EntityFramework.Models;
 using Trpz2.Models;
 using Trpz2.Navigator;
 using Trpz2.ViewModels;
@@ -26,6 +28,8 @@ namespace Trpz2.Views
             //    signIn.Show();
             //}
 
+  
+
             CurrentPermission = permissionToSet;
 
             InitializeComponent();
@@ -43,7 +47,7 @@ namespace Trpz2.Views
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            Navigation.Service = MainFrame.NavigationService;
+            //Navigation.Service = MainFrame.NavigationService;
 
             DataContext = new StartupWindowViewModel(new ViewModelsResolver(CurrentPermission), CurrentPermission);
         }
